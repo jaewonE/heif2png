@@ -1,10 +1,12 @@
-# HEIC Converter
+## HEIC Converter
 
-## 소개
+![Demo](https://github.com/jaewonE/heif2png/blob/main/assets/demo.gif?raw=true)
+
+### 소개
 
 HEIC Converter는 HEIC/HEIF 이미지 파일을 PNG, JPEG, 또는 WEBP 형식으로 변환하는 데스크톱 애플리케이션입니다. 사용자 친화적인 그래픽 인터페이스(GUI)를 제공하여 파일을 쉽게 드래그 앤 드롭하고 변환 설정을 선택할 수 있습니다.
 
-## 주요 기능
+### 주요 기능
 
 - **HEIC/HEIF 파일 변환**: 고효율 이미지 파일 포맷인 HEIC 및 HEIF 파일을 널리 사용되는 형식으로 변환합니다.
 - **다양한 출력 포맷 지원**: PNG, JPEG, WEBP 중 원하는 포맷으로 변환할 수 있습니다.
@@ -17,7 +19,7 @@ HEIC Converter는 HEIC/HEIF 이미지 파일을 PNG, JPEG, 또는 WEBP 형식으
 - **변환 상태 알림**: 변환 진행 상황 및 완료 후 성공/실패 요약을 제공합니다.
 - **오류 처리**: 지원하지 않는 파일 형식이나 변환 중 발생하는 오류에 대한 알림을 표시합니다.
 
-## 사용 방법
+### 사용 방법
 
 1.  애플리케이션을 실행합니다.
 2.  변환하고자 하는 HEIC 또는 HEIF 파일을 프로그램 창의 "여기에 HEIC 파일을 드래그하세요." 영역으로 드래그 앤 드롭하거나, 파일이 이미 목록에 있는 경우 파일 목록 영역으로 드래그 앤 드롭하여 추가합니다.
@@ -27,7 +29,7 @@ HEIC Converter는 HEIC/HEIF 이미지 파일을 PNG, JPEG, 또는 WEBP 형식으
 6.  하단의 "변환 시작" 버튼을 클릭하여 변환을 시작합니다.
 7.  변환이 완료되면 결과 알림창이 표시됩니다.
 
-## 의존성
+### 의존성
 
 이 애플리케이션을 소스 코드에서 직접 실행하려면 다음 라이브러리가 필요합니다:
 
@@ -41,11 +43,11 @@ HEIC Converter는 HEIC/HEIF 이미지 파일을 PNG, JPEG, 또는 WEBP 형식으
 pip install PyQt6 Pillow pillow-heif
 ```
 
-## 빌드 방법 (PyInstaller 사용)
+### 빌드 방법 (PyInstaller 사용)
 
 애플리케이션을 독립 실행형 파일로 빌드할 수 있습니다.
 
-### macOS용
+#### macOS용
 
 ```bash
 pyinstaller \
@@ -57,7 +59,7 @@ pyinstaller \
   app.py
 ```
 
-### Windows용
+#### Windows용
 
 ```bash
 pyinstaller `
