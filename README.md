@@ -62,11 +62,11 @@ pyinstaller \
 #### Windows용
 
 ```bash
-pyinstaller `
-  --noconsole --onefile `
-  --name "HeicConverter" `
-  --icon "C:\path\to\assets\heic_converter.ico" `
-  --collect-all pillow_heif `
+pyinstaller ^
+  --noconsole --onefile ^
+  --name "HeicConverter" ^
+  --icon "C:\path\to\assets\heic_converter.ico" ^
+  --collect-all pillow_heif ^
   app.py
 ```
 

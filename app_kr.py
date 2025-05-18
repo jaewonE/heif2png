@@ -14,7 +14,7 @@ try:
     register_heif_opener()
 except ImportError:
     QMessageBox.critical(
-        None, "Library Error", "Could not find the pillow-heif library. Please install it.")
+        None, "라이브러리 오류", "pillow-heif 라이브러리를 찾을 수 없습니다. 설치해주세요.")
     sys.exit(1)
 
 from PIL import Image
@@ -31,13 +31,13 @@ class HoverLabel(QLabel):
         self.setStyleSheet(
             "QLabel { border: 2px dashed #aaa; padding: 20px; background-color: #f0f0f0; }")
         self.setText(
-            "Drag HEIC/HEIF files or folders here.\n\n"
-            "After checking the options, click the 'Start Conversion' button below.")
+            "HEIC/HEIF 파일이나 폴더를 여기로 드래그하세요.\n\n"
+            "옵션을 확인한 후, 아래의 '변환 시작' 버튼을 클릭하세요.")
 
     def set_hover_style(self):
         self.setStyleSheet(
             "QLabel { border: 3px solid #0078d7; padding: 20px; background-color: #e0e0ff; }")
-        self.setText("Drop files or folders here!")
+        self.setText("파일이나 폴더를 여기에 놓으세요!")
 
     def dragEnterEvent(self, event: QDragEnterEvent):
         if event.mimeData().hasUrls():
@@ -122,7 +122,7 @@ class HEICConverterApp(QWidget):
         self.init_ui()
 
     def init_ui(self):
-        self.setWindowTitle('HEIC Converter')
+        self.setWindowTitle('HEIC 변환기')
         self.setGeometry(100, 100, 800, 600)
 
         main_layout = QVBoxLayout(self)
@@ -136,29 +136,29 @@ class HEICConverterApp(QWidget):
         # Spacing between controls in the grid
         self.top_section_layout.setSpacing(10)
 
-        self.format_label = QLabel("Output format:")
+        self.format_label = QLabel("출력 형식:")
         self.format_dropdown = QComboBox()
         self.format_dropdown.addItems(["PNG", "JPEG", "WEBP"])
         self.format_dropdown.setCurrentText("PNG")
         self.format_dropdown.setToolTip(
-            "Select the format for the converted images.")
+            "변환될 이미지의 형식을 선택하세요.")
 
-        self.replace_checkbox = QCheckBox("Overwrite original files")
+        self.replace_checkbox = QCheckBox("원본 파일 덮어쓰기")
         self.replace_checkbox.setToolTip(
-            "If checked, the original file will be replaced.\n"
-            "If unchecked, converted files will be saved in a 'Converted Files' folder."
+            "선택하면 원본 파일이 대체됩니다.\n"
+            "선택하지 않으면 변환된 파일이 'Converted Files' 폴더에 저장됩니다."
         )
         self.replace_checkbox.setChecked(self.settings.value(
             self.SETTINGS_REPLACE_ORIGINAL, True, type=bool))
 
-        self.metadata_checkbox = QCheckBox("Maintain metadata")
+        self.metadata_checkbox = QCheckBox("메타데이터 유지")
         self.metadata_checkbox.setToolTip(
-            "If checked, attempts to preserve EXIF and color profile metadata.")
+            "선택하면 EXIF 및 색상 프로필 메타데이터를 보존하려고 시도합니다.")
         self.metadata_checkbox.setChecked(self.settings.value(
             self.SETTINGS_MAINTAIN_METADATA, True, type=bool))
 
-        self.clear_button = QPushButton("Clear List")
-        self.clear_button.setToolTip("Clears the current list of files.")
+        self.clear_button = QPushButton("목록 지우기")
+        self.clear_button.setToolTip("현재 파일 목록을 지웁니다.")
         self.clear_button.setStyleSheet(
             "QPushButton { background-color: #ffcdd2; color: #b71c1c; border-radius: 6px; padding: 5px; }"
             "QPushButton:hover { background-color: #ef9a9a; }"
@@ -174,7 +174,7 @@ class HEICConverterApp(QWidget):
         main_layout.addWidget(self.body_stack, 1)
 
         self.no_files_view = HoverLabel(
-            "Drag HEIC/HEIF files or folders here.")
+            "HEIC/HEIF 파일이나 폴더를 여기로 드래그하세요.")
         self.body_stack.addWidget(self.no_files_view)
 
         self.files_selected_view = QWidget()
@@ -189,7 +189,7 @@ class HEICConverterApp(QWidget):
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.splitter.addWidget(self.file_list_widget)
 
-        self.preview_label = QLabel("Image Preview")
+        self.preview_label = QLabel("이미지 미리보기")
         self.preview_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.preview_label.setSizePolicy(
             QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
@@ -221,7 +221,7 @@ class HEICConverterApp(QWidget):
 
         # --- Bottom Section (Convert Button) ---
         bottom_section_layout = QHBoxLayout()
-        self.convert_button = QPushButton("Start Conversion")
+        self.convert_button = QPushButton("변환 시작")
         self.convert_button.setFixedHeight(40)
         self.convert_button.setStyleSheet(
             "QPushButton { background-color: #0078d7; color: white; font-weight: bold; border-radius: 5px; } "
@@ -271,7 +271,7 @@ class HEICConverterApp(QWidget):
         self.top_section_layout.activate()
 
     def _set_preview_placeholder(self):
-        self.preview_label.setText("No file selected or preview unavailable.")
+        self.preview_label.setText("선택된 파일이 없거나 미리보기를 사용할 수 없습니다.")
         palette = self.preview_label.palette()
         palette.setColor(QPalette.ColorRole.Window,
                          self.PREVIEW_PLACEHOLDER_COLOR)
@@ -355,12 +355,12 @@ class HEICConverterApp(QWidget):
             # If no HEIC files were found from this drop AND the list was initially empty (or became empty)
             if not new_heic_files_found and not self.file_paths:
                 QMessageBox.warning(
-                    self, "No Supported HEIC/HEIF Files",
-                    f"No HEIC/HEIF files were found. {num_unsupported} unsupported file(s) were ignored."
+                    self, "지원되는 HEIC/HEIF 파일 없음",
+                    f"HEIC/HEIF 파일을 찾을 수 없습니다. {num_unsupported}개의 지원되지 않는 파일은 무시되었습니다."
                 )
             # Some HEIC files were found/exist, or this drop added some HEIC files along with unsupported ones.
             else:
-                message = f"A total of {num_unsupported} unsupported file(s) were ignored:"
+                message = f"총 {num_unsupported}개의 지원되지 않는 파일이 무시되었습니다:"
                 display_limit = 5
                 files_to_display = list(set(unsupported_files_basenames))[
                     :display_limit]  # Show unique basenames
@@ -368,7 +368,7 @@ class HEICConverterApp(QWidget):
                 if len(set(unsupported_files_basenames)) > display_limit:  # Check against unique count
                     message += "\n - ..."
                 QMessageBox.information(
-                    self, "Unsupported Files Ignored", message)
+                    self, "지원되지 않는 파일 무시됨", message)
 
         if self.file_paths:
             self.update_file_list_widget()
@@ -439,10 +439,10 @@ class HEICConverterApp(QWidget):
             except Exception as e:
                 self._set_preview_placeholder()
                 self.preview_label.setText(
-                    f"Preview Error:\n{os.path.basename(self.current_preview_path)}\n{type(e).__name__}")
+                    f"미리보기 오류:\n{os.path.basename(self.current_preview_path)}\n{type(e).__name__}")
         elif not self.preview_label.isVisible():
             self.preview_label.setPixmap(QPixmap())
-            self.preview_label.setText("Preview hidden.")
+            self.preview_label.setText("미리보기 숨김.")
         else:
             self._set_preview_placeholder()
 
@@ -466,12 +466,12 @@ class HEICConverterApp(QWidget):
                             self.file_list_widget.currentItem(), None)
                 else:
                     self.preview_label.setPixmap(QPixmap())
-                    self.preview_label.setText("Preview hidden.")
+                    self.preview_label.setText("미리보기 숨김.")
 
     def start_conversion(self):
         if not self.file_paths:
             QMessageBox.information(
-                self, "Notice", "There are no files to convert.")
+                self, "알림", "변환할 파일이 없습니다.")
             return
 
         output_format_str = self.format_dropdown.currentText().lower()
@@ -503,13 +503,14 @@ class HEICConverterApp(QWidget):
                 output_path = os.path.join(
                     dir_name, f"{file_root}.{output_format_str}")
             else:
+                # 사용자가 원하면 이 폴더명도 바꿀 수 있습니다.
                 converted_files_dir = os.path.join(dir_name, "Converted Files")
                 if not os.path.exists(converted_files_dir):
                     try:
                         os.makedirs(converted_files_dir)
                     except OSError as e:
                         QMessageBox.critical(
-                            self, "Folder Creation Error", f"Error creating folder '{converted_files_dir}': {e}")
+                            self, "폴더 생성 오류", f"'{converted_files_dir}' 폴더 생성 중 오류 발생: {e}")
                         error_count += 1
                         self.progress_bar.setValue(i + 1)
                         self.progress_label.setText(f"{i + 1}/{total_files}")
@@ -570,13 +571,13 @@ class HEICConverterApp(QWidget):
                         os.remove(file_path)
                     except OSError as e:
                         print(
-                            f"Warning: Could not remove original file {file_path}: {e}")
+                            f"경고: 원본 파일 {file_path}을(를) 삭제할 수 없습니다: {e}")
                 converted_count += 1
 
             except Exception as e:
                 error_count += 1
                 QMessageBox.critical(
-                    self, "Conversion Error", f"Error converting '{base_name}': {type(e).__name__}: {e}")
+                    self, "변환 오류", f"'{base_name}' 변환 중 오류 발생: {type(e).__name__}: {e}")
 
             # Update text first so label and bar advance together
             self.progress_label.setText(f"{i + 1}/{total_files}")
@@ -587,12 +588,12 @@ class HEICConverterApp(QWidget):
         QApplication.restoreOverrideCursor()
         self.convert_button.setEnabled(True)  # Re-enable after loop
 
-        summary_message = f"Conversion process finished.\nTotal files processed: {total_files}\nSuccess: {converted_count}\nFailed: {error_count}\n"
+        summary_message = f"변환 작업이 완료되었습니다.\n총 처리 파일 수: {total_files}\n성공: {converted_count}\n실패: {error_count}\n"
         if not replace_original and output_folders:
-            summary_message += "\nConverted files have been saved to the following folder(s):\n" + "\n".join(
+            summary_message += "\n변환된 파일은 다음 폴더에 저장되었습니다:\n" + "\n".join(  # 사용자가 원하면 이 폴더명도 바꿀 수 있습니다.
                 sorted(list(output_folders)))
 
-        QMessageBox.information(self, "Conversion Completed", summary_message)
+        QMessageBox.information(self, "변환 완료", summary_message)
 
         if replace_original and converted_count > 0:
             self.clear_file_list()
