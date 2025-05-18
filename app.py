@@ -20,10 +20,6 @@ except ImportError:
 
 from PIL import Image
 
-# Application icon (simple Base64‑encoded icon data)
-# In production, specify the path to an .ico or .png file instead.
-APP_ICON_B64 = "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARMSURBVHhe7ZtNbBxlGMf//88c2x3LdlrbStumFClpFSlFBFGPUY8eRKOCHkAMHjRI40EPSk00GgmGBEFNIyhRsA9VgYp4KCgJgkS02oSN2MYYYzu2sWO/M/N4v9vZGZ8d+1EPzP6kZ3ZmZ/b3fd7vfN/3eV4CJGgg6M0g6I0g6I0g6I0g6I0g6I0g6I0g6E0hANBisL29TXNzc0oikaisrq7S2tqa0u12qaurS+np6Y2XjY2NaWNjg4qKihQWFhY0vV6v80EHBwfq6+tTDAZDr2hpaUHbtm0aGBhIvb29NDAwULPZzGtra7R9+3YtLS3N+PjU1RTk5+fHlJeXp7q6OhoaGkqv15u2jo6O3kEqlcr4/v7+A9PT0xkdHS2RSKSRkRG6urqSy+U0NjZWnZycKJfL6evri1arRTAYpNVqzcifnp6mra0tJSUlGZcvX6alpSVKl8tNJBKhlZUVNTU1KTQ0NP0kKysrGRsbS6PRGAkEAnA4HHR0dFAoFCGEkMvlkvH5+fmkv78/xWKxDA4OJiKRaHh5eUlVVVX6+voSTqeber3emJiYyNvbWwoLC9Pc3JzKysoSCARobGyMmzdvUnNzMzk5OdHc3JzS0tLodDqVlZWlXC7XFBcXHwS/v79TPp9Pc3NzjIyMJDc3N51Op0ajUTU1NSGEBgYGNDc3JxKJRBqNRqFQSDQazcjISDIyMsLExARZlpWXl6euri5NTU1pbGyMSqXScDhMIpHI0Ov1KBaLlJaWpnA4XHC5XAgEAjQ2Nqazs7PzfSsrK+np6UnV1dXk5OTExMQEtFotPp+PwMBAWltbk5eXF/Pz8xkaGko0Gm24ublJIpFIuVxuW1tb09LSEg0NDZmamkpNTU0ikUgaGhrSLFuBQQiBQACDwQCpVJpyuRxFUWxtbVFZWZkCAgKMiYlBkqTt7e10d3dnRkYGubm5kZGRgY6ODqZPn47S0lJGR0fR2NiYMjIyGBoawrRp0zA2Nobm5mYaGhrQ3t6OhIQEjI2NwdGjRzE2Nob+/n6Ghobw9vYGd3d3jImJwdjYGADw8PAAQUFBGBsbw4iICNy6dQvV1dXk5eXBxMSEgoICHBycGBkZCR+Ph9DQULhcLrKzsyGEcPXqVXR0dCAQCACQmJhIbm4uISEh6OrqQlpaGuHh4UhPT0cpKSlOnz6NhoYGuru7UVVVhZaWFgQCAQYHB9Hc3IylS5ca3r17l0AgADc3N0RFRQEAoVAIMpkMZWVl8Pl8BAIBuFwuDAYDTExMICAggCAhISEhOXDgALq7u6HVajE0NITe3l5sbGzg4OAAb29vaGlpQUVFBRqNBqOjo/Dx8QFPnjxh/fr1AIDq6moAQElJCQ4dOgSHw4GdnR2ys7MRCARwcHAANzc3AMDZ2RkHBwdsbm5Cc3Nz+p4uLS2NN2/eRKlUyrNnz1IsFuPq1athtVoAgMFgwMrKCg6HwwgGg6Snp0OtVjM+Pj6O7u5uvLy8AADUajWcnJyQl5cXoVCIVqs1jY2NmJmZSTQaZWxsLPX19Ziamlp0U9La2pqu7u709PSkcDhMXV1dmpqaSn19fRqNRuOziMViNDk5mf7+/jQzM6Ouri5NTU3tOWhpacnn5+dUq1VKpVJLS0tjWlpaNDY2JhKJRKFQSFtbW8rn8wkJCTHcEaWlpamqqkokEqGxsTGlpaVx8uTJhgcNGjRAOp2mWCzG4uJiLC0tJRqNkpubm+H5rKyspLOzk0gkQjabJTc3F/f39zgcDrS2tiIsLAyBQAB+fn7Q6/UITU3N9O339nZGRISQjAYpbGxUYSCX6WwB74s1/eHnEwR9EwR9EwR9EwR9EwR9EwR9EwR9k/wHy9hLmh6e3nEAAAAASUVORK5CYII="
-
 
 class HoverLabel(QLabel):
     def __init__(self, text, parent=None):
@@ -134,18 +130,6 @@ class HEICConverterApp(QWidget):
         self.file_paths = []
         self.current_preview_path = None
         self.init_ui()
-
-        # Set application icon
-        try:
-            from PyQt6.QtGui import QImageReader
-            img_reader = QImageReader.imageFormat(
-                QByteArray.fromBase64(APP_ICON_B64.encode()))
-            if img_reader:
-                icon_img = QImage.fromData(
-                    QByteArray.fromBase64(APP_ICON_B64.encode()))
-                self.setWindowIcon(QIcon(QPixmap.fromImage(icon_img)))
-        except Exception as e:
-            print(f"Icon load failed: {e}")  # In practice, use logging
 
     def init_ui(self):
         self.setWindowTitle('HEIC Converter')
